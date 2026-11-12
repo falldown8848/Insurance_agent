@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+.venv/
+venv/
+*.egg-info/
+build/
+dist/
+site/
+
+# 环境变量 / 密钥
+.env
+.env.*
+!.env.example
+
+# 日志 / 本地数据
+logs/
+*.log
+data/
+uploads/
+*.sqlite3
+*.db
+
+# 操作系统 / 编辑器
+.DS_Store
+Thumbs.db
+.idea/
+*.swp
