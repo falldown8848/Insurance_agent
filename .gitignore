@@ -31,3 +31,6 @@ uploads/
 Thumbs.db
 .idea/
 *.swp
+
+
+langchain/

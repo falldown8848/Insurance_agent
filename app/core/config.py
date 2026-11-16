@@ -59,7 +59,7 @@ class DatabaseSettings(EnvSettings):
 class LLMSettings(EnvSettings):
     """模型相关配置"""
     api_key: str = Field(alias="DEEPSEEK_API_KEY")
-    chat_model: str = Field(alias="CHAT_MODEL", default="deepseek-v4.1-flash")
+    chat_model: str = Field(alias="CHAT_MODEL", default="deepseek-flash")
 
 class LoggingSettings(EnvSettings):
     """日志相关配置"""
