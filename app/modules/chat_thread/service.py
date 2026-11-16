@@ -67,7 +67,7 @@ class ChatThreadService:
 
         # 3.封装历史消息
         messages = []
-        for message in state_snapshot.values.get('messages', []):
+        for message in state_snapshot.values.get('messages', []):# 如果直接创建的会话没有聊过天，就直接跳过
             # 判断类型，决定role
             if isinstance(message, HumanMessage):
                 role = "user"
