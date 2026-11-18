@@ -1,7 +1,7 @@
 from langchain.agents import create_agent
 from langchain.chat_models import init_chat_model
 from langgraph.graph.state import CompiledStateGraph
-
+from app.agents.tools import query_candidate_products
 from app.core.config import settings
 from app.core.logging import get_logger
 
@@ -27,7 +27,7 @@ async def init_insurance_advisor(checkpointer) -> CompiledStateGraph:
     # 2.创建Agent，绑定model、tools、Checkpointer
     agent = create_agent(
         model=model,
-        tools=[],
+        tools=[query_candidate_products],
         checkpointer=checkpointer,
         system_prompt=SYSTEM_PROMPT
     )
