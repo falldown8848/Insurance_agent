@@ -30,7 +30,7 @@ async def lifespan(app: FastAPI):
         yield
     finally:
         logger.info("应用关闭中... ")
-        await close_rag()
+        close_rag()
         await close_database()
         await close_checkpointer()
 

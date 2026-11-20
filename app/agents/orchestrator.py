@@ -5,7 +5,7 @@ from langgraph.types import Command
 
 from .schemas import InsuranceAgentState, Intent
 from .intent_router import router
-# from .chitchat import init_chitchat_agent
+from .chitchat import init_chitchat_agent
 from .insurance_advisor import init_insurance_advisor
 
 # 1.定义节点
@@ -67,8 +67,8 @@ def claim_node(state: InsuranceAgentState):
     return {"messages": [AIMessage("理赔咨询功能尚未完成~")]}
 
 # 1.4.闲聊节点
-def chitchat_node(state: InsuranceAgentState):
-    return {"messages": [AIMessage("哈哈，欢迎你来到安心保商城，今天聊点啥~")]}
+# def chitchat_node(state: InsuranceAgentState):
+#     return {"messages": [AIMessage("哈哈，欢迎你来到安心保商城，今天聊点啥~")]}
 
 # 1.5.人工
 def human_handoff_node(state: InsuranceAgentState):
@@ -86,7 +86,7 @@ async def init_insurance_agent(checkpointer):
     # 添加节点
     builder.add_node("route", route_node)
     builder.add_node("recommendation_plan",await init_insurance_advisor())
-    builder.add_node("chitchat", chitchat_node)
+    builder.add_node("chitchat", init_chitchat_agent())
     builder.add_node("claim", claim_node)
     builder.add_node("human_handoff", human_handoff_node)
     builder.add_node("fallback", fallback_node)

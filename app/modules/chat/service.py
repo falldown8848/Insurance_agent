@@ -38,8 +38,18 @@ class ChatService:
         )
 
         # 5.返回结果
-        async for message in stream.messages:
-            async for chuck in message.text:
-                    yield ServerSentEvent(data=chuck, event="message")
+        # async for message in stream.messages:
+        #     async for chuck in message.text:
+        #             yield ServerSentEvent(data=chuck, event="message")
+        
+        async for event in stream:
+            method = event['method']
+            # 判断事件类型，可以是messages、interrupts等等
+            if method == 'messages':
+                data = event['params']['data'][0]
+                if isinstance(data, AIMessage):
+                    yield ServerSentEvent(data=data.text, event="message")
+                elif data.get('delta') and data['delta'].get('text'):
+                    yield ServerSentEvent(data=data['delta'].get('text'), event="message")
 
         yield ServerSentEvent(data="END", event="done")
