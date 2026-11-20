@@ -18,7 +18,7 @@ async def lifespan(app: FastAPI):
     logger.info(f"【{settings.app.name}】应用启动中...")
     from app.infra.database import check_database, close_database
     from app.infra.checkpointer import init_checkpointer,close_checkpointer
-    from app.agents.insurance_advisor import init_insurance_advisor
+    from app.agents.orchestrator import init_insurance_agent
     from app.rag import close_rag
     try:
         # 1. 初始化数据库连接池
@@ -26,7 +26,7 @@ async def lifespan(app: FastAPI):
         # 2. 初始化Checkpointer
         checkpointer = await init_checkpointer()
         # 3. 初始化Agent, 并将其保存在FastAPI的全局State中，一切进入FastAPI的请求都共享这个State
-        app.state.agent = await init_insurance_advisor(checkpointer)
+        app.state.agent = await init_insurance_agent(checkpointer)
         yield
     finally:
         logger.info("应用关闭中... ")

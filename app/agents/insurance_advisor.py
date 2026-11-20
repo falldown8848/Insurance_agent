@@ -16,7 +16,7 @@ SYSTEM_PROMPT = """
 
 
 # agent在整个系统中，只初始化一次，
-async def init_insurance_advisor(checkpointer) -> CompiledStateGraph:
+async def init_insurance_advisor() -> CompiledStateGraph:
     # 1.初始化模型
     model = init_chat_model(
         model=settings.llm.chat_model,
@@ -28,7 +28,6 @@ async def init_insurance_advisor(checkpointer) -> CompiledStateGraph:
     agent = create_agent(
         model=model,
         tools=[query_candidate_products,retrieve_insurance_clause],
-        checkpointer=checkpointer,
         system_prompt=SYSTEM_PROMPT
     )
 
